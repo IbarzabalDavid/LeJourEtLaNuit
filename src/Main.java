@@ -19,6 +19,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.Collections;
+
+import static java.lang.StrictMath.cos;
+import static java.lang.StrictMath.sin;
+
 public class Main extends Application {
     public static void main(String[] args) { launch(args); }
 
@@ -60,6 +65,12 @@ public class Main extends Application {
              //bird
 
              //star
+        Circle test=new Circle(400,200,200);
+        test.setFill(Color.WHITE);
+        Polygon star1=new Polygon(400,0, 455,138, 589,138, 475,220, 518,362, 400,280, 282,362, 325,220, 211,138, 345,138);
+        Polygon star2=new Polygon(400,0, 455,138, 589,138, 475,220, 518,362, 400,280, 282,362, 325,220, 211,138, 345,138);;
+        Polygon star3=new Polygon(400,0, 455,138, 589,138, 475,220, 518,362, 400,280, 282,362, 325,220, 211,138, 345,138);;
+        Polygon star4=new Polygon(400,0, 455,138, 589,138, 475,220, 518,362, 400,280, 282,362, 325,220, 211,138, 345,138);;
 
              //text
         Text night=new Text(565,320,"Nuit");
@@ -123,6 +134,26 @@ public class Main extends Application {
              //bird
 
              //star
+        star1.setFill(Color.YELLOW);
+        star2.setFill(Color.YELLOW);
+        star3.setFill(Color.YELLOW);
+        star4.setFill(Color.YELLOW);
+        star1.setScaleX(0.07);
+        star1.setScaleY(0.07);
+        star1.setTranslateX(70);
+        star1.setTranslateY(-150);
+        star2.setScaleX(0.04);
+        star2.setScaleY(0.04);
+        star2.setTranslateX(102);
+        star2.setTranslateY(-95);
+        star3.setScaleX(0.07);
+        star3.setScaleY(0.07);
+        star3.setTranslateX(159);
+        star3.setTranslateY(-115);
+        star4.setScaleX(0.095);
+        star4.setScaleY(0.095);
+        star4.setTranslateX(219);
+        star4.setTranslateY(-95);
 
              //Text
         night.setFill(Color.WHITE);
@@ -163,7 +194,7 @@ public class Main extends Application {
         //GROUPE
         Group root=new Group(bigBlack,bigLightGrey,maisonJT,maisonJB,maisonNB,maisonNT,doorJ,doorN,
                 poigneeJ,poigneeN,windowJ,windowN,line2J,lineJ,line2N,lineN,ray1,ray2,ray3,ray4,sun,
-                moon,night,day);
+                moon,night,day,star1,star2,star3,star4);
         primaryStage.setScene(
                 new Scene(root)
         );
@@ -171,4 +202,5 @@ public class Main extends Application {
         //SHOW
         primaryStage.show();
     }
+
 }
