@@ -1,7 +1,4 @@
-import javafx.animation.FillTransition;
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -10,10 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -63,6 +57,10 @@ public class Main extends Application {
         Circle moon=new Circle(720,60,30);
 
              //bird
+        QuadCurve bird1Left=new QuadCurve(15,110,35,70,60,95);
+        QuadCurve bird1Right=new QuadCurve(105,110,85,70,60,95);
+        QuadCurve bird2Left=new QuadCurve(15,110,35,70,60,95);
+        QuadCurve bird2Right=new QuadCurve(105,110,85,70,60,95);
 
              //star
         Circle test=new Circle(400,200,200);
@@ -132,6 +130,18 @@ public class Main extends Application {
         moon.setFill(grad);
 
              //bird
+        bird1Left.setFill(Color.TRANSPARENT);
+        bird1Right.setFill(Color.TRANSPARENT);
+        bird1Left.setStroke(Color.BLACK);
+        bird1Right.setStroke(Color.BLACK);
+        bird2Left.setFill(Color.TRANSPARENT);
+        bird2Right.setFill(Color.TRANSPARENT);
+        bird2Left.setStroke(Color.BLACK);
+        bird2Right.setStroke(Color.BLACK);
+        bird2Left.setTranslateX(150);
+        bird2Right.setTranslateX(150);
+        bird2Left.setTranslateY(-50);
+        bird2Right.setTranslateY(-50);
 
              //star
         star1.setFill(Color.YELLOW);
@@ -190,11 +200,57 @@ public class Main extends Application {
         trans5.setAutoReverse(true);
         trans5.play();
 
+             //Stars
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), star1);
+        fade.setFromValue(1.0);
+        fade.setToValue(0);
+        fade.setCycleCount(Timeline.INDEFINITE);
+        fade.setAutoReverse(true);
+        fade.play();
+        FadeTransition fade2 = new FadeTransition(Duration.seconds(2), star2);
+        fade2.setFromValue(0);
+        fade2.setToValue(1.0);
+        fade2.setCycleCount(Timeline.INDEFINITE);
+        fade2.setAutoReverse(true);
+        fade2.play();
+        FadeTransition fade3 = new FadeTransition(Duration.millis(1200), star3);
+        fade3.setFromValue(1.0);
+        fade3.setToValue(0);
+        fade3.setCycleCount(Timeline.INDEFINITE);
+        fade3.setAutoReverse(true);
+        fade3.play();
+        FadeTransition fade4 = new FadeTransition(Duration.millis(2800), star4);
+        fade4.setFromValue(0);
+        fade4.setToValue(1.0);
+        fade4.setCycleCount(Timeline.INDEFINITE);
+        fade4.setAutoReverse(true);
+        fade4.play();
+
+             //Birds
+        Group birds = new Group(bird1Left, bird1Right, bird2Left, bird2Right);
+        KeyValue kv1=new KeyValue(bird1Left.startYProperty(),bird1Left.getStartY()-25,Interpolator.LINEAR);
+        KeyValue kv2=new KeyValue(bird1Left.endYProperty(),bird1Left.getEndY()+8,Interpolator.LINEAR);
+        KeyValue kv3=new KeyValue(bird1Right.startYProperty(),bird1Right.getStartY()-25,Interpolator.LINEAR);
+        KeyValue kv4=new KeyValue(bird1Right.endYProperty(),bird1Right.getEndY()+8,Interpolator.LINEAR);
+
+        KeyValue kv5=new KeyValue(bird2Left.startYProperty(),bird2Left.getStartY()-25,Interpolator.LINEAR);
+        KeyValue kv6=new KeyValue(bird2Left.endYProperty(),bird2Left.getEndY()+8,Interpolator.LINEAR);
+        KeyValue kv7=new KeyValue(bird2Right.startYProperty(),bird2Right.getStartY()-25,Interpolator.LINEAR);
+        KeyValue kv8=new KeyValue(bird2Right.endYProperty(),bird2Right.getEndY()+8,Interpolator.LINEAR);
+
+        KeyFrame kf1 = new KeyFrame(Duration.seconds(1), kv2,kv1,kv4,kv3,kv6,kv5,kv8,kv7);
+
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().addAll(kf1);
+        timeline.setAutoReverse(true);
+        timeline.play();
+
 
         //GROUPE
         Group root=new Group(bigBlack,bigLightGrey,maisonJT,maisonJB,maisonNB,maisonNT,doorJ,doorN,
                 poigneeJ,poigneeN,windowJ,windowN,line2J,lineJ,line2N,lineN,ray1,ray2,ray3,ray4,sun,
-                moon,night,day,star1,star2,star3,star4);
+                moon,night,day,star1,star2,star3,star4,birds);
         primaryStage.setScene(
                 new Scene(root)
         );
